@@ -1,0 +1,18 @@
+{
+  "locales": {
+    "en": {
+      "description": "Configure and harden OpenSSH public-key access between macOS, Linux, or Windows machines over any existing direct, VPN, overlay, or bastion route.",
+      "display_name": "skill-ssh-access-setup",
+      "short_description": "Cross-platform SSH over any route",
+      "default_prompt": "Use $skill-ssh-access-setup to configure and verify public-key OpenSSH access over the available direct or proxied route, then safely disable password authentication when requested.",
+      "local_prefix": "[local] "
+    },
+    "ru": {
+      "description": "Настраивает и защищает OpenSSH по ключу между macOS, Linux и Windows через любой существующий прямой, VPN, overlay или bastion-маршрут.",
+      "display_name": "skill-ssh-access-setup",
+      "short_description": "Кроссплатформенный SSH через любой маршрут",
+      "default_prompt": "Используй $skill-ssh-access-setup, чтобы настроить и проверить OpenSSH по ключу через доступный прямой или proxied-маршрут, а при запросе безопасно отключить вход по паролю.",
+      "local_prefix": "[локально] "
+    }
+  }
+}

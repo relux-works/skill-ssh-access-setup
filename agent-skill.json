@@ -1,0 +1,58 @@
+{
+  "schema_version": 3,
+  "runtime_roots": ["scripts", "payloads"],
+  "capabilities": {
+    "network": ["*"],
+    "filesystem": ["~/.ssh", "%USERPROFILE%/.ssh", "/tmp", "/etc/ssh/sshd_config.d", "%ProgramData%/ssh"],
+    "exec": ["awk", "basename", "cat", "chmod", "cp", "dirname", "grep", "icacls.exe", "install", "mkdir", "mktemp", "mv", "nc", "powershell.exe", "rm", "scp", "service", "sh", "sort", "ssh", "ssh-copy-id", "ssh-keygen", "sudo", "systemctl", "tailscale", "uname", "wg", "zerotier-cli"],
+    "secrets": ["ssh-private-key", "ssh-key-passphrase", "remote-account-password"],
+    "env_read": ["HOME", "TMPDIR", "USERPROFILE", "ProgramData"],
+    "prompt_scope": "Configure OpenSSH public-key access only for a user-selected macOS, Linux, or Windows endpoint over an already available direct or proxied route."
+  },
+  "commands": {
+    "ssh-access-discover": {
+      "type": "script",
+      "unix_path": "scripts/unix/discover.sh",
+      "win_path": "scripts/windows/discover.ps1"
+    },
+    "ssh-access-check": {
+      "type": "script",
+      "unix_path": "scripts/unix/check.sh",
+      "win_path": "scripts/windows/check.ps1"
+    },
+    "ssh-access-authorize": {
+      "type": "script",
+      "unix_path": "scripts/unix/authorize.sh",
+      "win_path": "scripts/windows/authorize.ps1"
+    },
+    "ssh-access-alias": {
+      "type": "script",
+      "unix_path": "scripts/unix/add-alias.sh",
+      "win_path": "scripts/windows/add-alias.ps1"
+    },
+    "ssh-access-harden": {
+      "type": "script",
+      "unix_path": "scripts/unix/harden.sh",
+      "win_path": "scripts/windows/harden.ps1"
+    }
+  },
+  "dependencies": {
+    "commands": {
+      "scp": {
+        "type": "system",
+        "command": "scp",
+        "hint": "Install the platform OpenSSH client through machine bootstrap."
+      },
+      "ssh": {
+        "type": "system",
+        "command": "ssh",
+        "hint": "Install the platform OpenSSH client through machine bootstrap."
+      },
+      "ssh-keygen": {
+        "type": "system",
+        "command": "ssh-keygen",
+        "hint": "Install the platform OpenSSH client through machine bootstrap."
+      }
+    }
+  }
+}
