@@ -13,3 +13,6 @@
 - Too many authentication failures
 - disable SSH password authentication
 - key-only SSH
+- lock down a fresh rented or dedicated server
+- SSH only over VPN or overlay, close public SSH
+- server must not reach my other devices

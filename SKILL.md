@@ -34,6 +34,10 @@ Resolve `<ssh-access-discover>`, `<ssh-access-check>`, `<ssh-access-authorize>`,
 7. Verify with `<ssh-access-check> --alias <alias>`.
 8. When key-only hardening is requested, preview `<ssh-access-harden> --target-os <platform> --alias <alias>`, apply only after key authentication succeeds, keep an existing session open, then run `--verify`.
 
+## Fresh Server Bootstrap
+
+For a newly provisioned Linux server that must be locked down before any workload runs, read `references/server-bootstrap.md` after the Fast Path. It orders the optional scopes: key-only SSH with no password hashes, updates and a default-deny host firewall, overlay membership, overlay-only SSH, one-way reachability (owner devices reach the server, the server reaches none of them), and unprivileged service accounts. Run each scope only when the user authorized it, verify it from a fresh connection, and keep the provider's rescue console as the break-glass path.
+
 ## Safety
 
 - Discovery and checks are read-only. Authorization, alias creation, and hardening preview by default and mutate only with `--apply`.

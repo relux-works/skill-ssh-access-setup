@@ -12,6 +12,7 @@ The package configures the SSH layer; it does not require, install, or mutate a 
 - `payloads/` — target-platform authorization and hardening payloads.
 - `references/platforms.md` — platform-specific bootstrap and recovery details.
 - `references/transports.md` — route selection, custom ports, overlays, and bastions.
+- `references/server-bootstrap.md` — ordered lockdown of a freshly provisioned Linux server: key-only SSH, host firewall, overlay-only SSH, one-way reachability, and service accounts.
 - `locales/` and `.skill_triggers/` — English/Russian activation metadata.
 
 ## Validate

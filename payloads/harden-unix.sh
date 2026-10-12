@@ -17,7 +17,7 @@ rollback() {
 }
 if ! "$sshd_binary" -t; then rollback; printf '%s\n' error_code=sshd_validation_failed >&2; exit 1; fi
 effective_config=$("$sshd_binary" -T 2>/dev/null) || { rollback; printf '%s\n' error_code=sshd_effective_config_failed >&2; exit 1; }
-if ! printf '%s\n' "$effective_config" | grep -Eq '^passwordauthentication no$'; then
+if ! printf '%s\n' "$effective_config" | grep -Eq '^passwordauthentication no$' || ! printf '%s\n' "$effective_config" | grep -Eq '^authenticationmethods publickey$'; then
   rollback
   printf '%s\n' error_code=ineffective_sshd_dropin >&2
   exit 1
