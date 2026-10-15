@@ -30,7 +30,7 @@ Resolve `<ssh-access-discover>`, `<ssh-access-check>`, `<ssh-access-authorize>`,
 3. Run `<ssh-access-check> --host <endpoint> --port <port> --user <user> --key <private-key> [--proxy-jump <jump>] [--transport <label>]`.
 4. If `ssh_port=closed`, read only the target section in `references/platforms.md` and stop at its physical-access or administrator boundary.
 5. If `key_auth=missing`, preview `<ssh-access-authorize>` with the same route plus `--target-os` and `--public-key`. Give the exact `--apply` command to the user because initial password or elevation is human-only. Check once afterward.
-6. Preview `<ssh-access-alias>` with the same route, then apply it when `status=would_add`. Refuse collisions.
+6. Preview `<ssh-access-alias>` with the same route, then apply it when `status=would_add`. Refuse collisions. When the key lives only in a non-default agent (a password manager agent or a dedicated agent socket), pass its `.pub` file as `--key` and the socket or pipe as `--identity-agent`. Aliases always write `ForwardAgent no`.
 7. Verify with `<ssh-access-check> --alias <alias>`.
 8. When key-only hardening is requested, preview `<ssh-access-harden> --target-os <platform> --alias <alias>`, apply only after key authentication succeeds, keep an existing session open, then run `--verify`.
 
@@ -43,7 +43,8 @@ For a newly provisioned Linux server that must be locked down before any workloa
 - Discovery and checks are read-only. Authorization, alias creation, and hardening preview by default and mutate only with `--apply`.
 - Transfer only public keys and packaged payloads. Never read, print, upload, or persist private-key bytes or passphrases.
 - Suppress unrelated identities during initial authorization. Never disable password authentication before a separate key-authenticated connection succeeds.
-- Preserve existing client configuration. Write only one alias containing endpoint, port, account, key, and optional ProxyJump.
+- Preserve existing client configuration. Write only one alias containing endpoint, port, account, key, `ForwardAgent no`, and optional IdentityAgent and ProxyJump.
+- Never enable agent forwarding to a server. A forwarded agent lets anyone with root on that server use every key in it for as long as the session stays open.
 - On macOS/Linux, install one validated sshd drop-in; on Windows, back up and validate `%ProgramData%\ssh\sshd_config`. Confirm effective policy and roll back on validation or reload failure.
 - Do not create public exposure, port forwarding, VPN membership, firewall rules, routes, or bastion accounts unless the user separately authorizes that scope.
 - Never request a password in chat, arguments, logs, or environment variables.
